@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MADPractical</string>
+    <string name="Follow">Follow</string>
+    <string name="Message">Message</string>
+    <string name = "Group1">Group 1</string>
+    <string name = "Group2">Group 2 </string>
+</resources>
