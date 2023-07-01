@@ -1,6 +1,7 @@
 package sg.edu.np.med.madpractical;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -53,7 +54,7 @@ public class MyDBHandler extends SQLiteOpenHelper{
         values.put(COLUMN_ISFOLLOWED, user.isFollowed());
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(TABLE_USERS, null, values);
-        db.close(); // Close the database connection after the insert operation
+        //db.close();
     }
     public ArrayList<User> getUsers() {
         ArrayList<User> userList = new ArrayList<User>();
@@ -69,8 +70,21 @@ public class MyDBHandler extends SQLiteOpenHelper{
             Log.d("MyDBHandler", "User: " + user.getName() + ", " + user.getDescription() + ", " + user.isFollowed());
         }
         cursor.close();
-        db.close();
+        //db.close();
         return userList;
+    }
+    public void updateUser(User user){
+        ContentValues values = new ContentValues();
+        SQLiteDatabase db = this.getWritableDatabase();
+        if(user.isFollowed() == true){
+            values.put(COLUMN_ISFOLLOWED,true);
+            db.update(TABLE_USERS,values,"COLUMN_ID =?", new String[]{String.valueOf(user.getId())});
+        }
+        else{
+            values.put(COLUMN_ISFOLLOWED,false);
+            db.update(TABLE_USERS,values,"COLUMN_ID =?", new String[]{String.valueOf(user.getId())});
+        }
+        Log.v("MyDBHandlerFollowed", COLUMN_ISFOLLOWED);
     }
 
 

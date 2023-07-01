@@ -53,14 +53,18 @@ public class ListActivity extends AppCompatActivity implements  RecyclerViewInte
             builder.setTitle("Profile");
             builder.setMessage(clickedUser.getName());
             builder.setCancelable(false);
+            String name = clickedUser.getName();
+            String description = clickedUser.getDescription();
+            Boolean isFollowed = clickedUser.isFollowed();
             builder.setPositiveButton("View", new DialogInterface.OnClickListener(){
                 public void onClick(DialogInterface dialog, int id){
                     Bundle extras = new Bundle();
                     extras.putString("name", clickedUser.getName());
                     extras.putString("description", clickedUser.getDescription());
                     extras.putBoolean("isFollowed", clickedUser.isFollowed());
+                    User user = new User(name,  description , 0, isFollowed);
                     Intent activityName = new Intent(ListActivity.this, MainActivity.class);
-                    activityName.putExtras(extras);
+                    activityName.putExtra("user",user);
                     startActivity(activityName);
                 }
             });
